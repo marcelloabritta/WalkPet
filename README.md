@@ -1,23 +1,24 @@
-# TÍTULO DO PROJETO
+# WalkPet
 
-`CURSO`
+`SISTEMAS PARA INTERNET`
 
-`DISCIPLINA`
+`Eixo 3 - Projeto: Desenvolvimento Web Back-End - Turma 01 - 2025/1`
 
-`SEMESTRE`
+`3º SEMESTRE`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O projeto é uma plataforma digital que facilite o agendamento de passeios para pet, por meio de um sistema interativo de cards, os donos de pets podem criar e visualizar perfis de seus animais e encontrar passeadores de confiança usando filtros personalizados, como localidade, disponibilidade e preferências dos pets. Essa solução simplifica o processo de seleção e agendamento, oferecendo uma experiência segura e amigável para proprietários e passeadores.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Marcello Abritta Nogueira Rezende
+* Olivier Lopes Rubinger
+* Ligia de Castro Martins
+
 
 ## Orientador
 
-* Nome completo do professor 1
+* Will Ricardo dos Santos Machado
+Will Ricardo dos Santos Machado
 
 ## Instruções de utilização
 
