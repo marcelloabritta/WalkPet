@@ -18,7 +18,7 @@ O projeto é uma plataforma digital que facilite o agendamento de passeios para 
 ## Orientador
 
 * Will Ricardo dos Santos Machado
-Will Ricardo dos Santos Machado
+
 
 ## Instruções de utilização
 
