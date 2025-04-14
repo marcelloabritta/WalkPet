@@ -1,0 +1,65 @@
+.card-walkers {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  box-sizing: border-box;
+  justify-content: space-around;
+}
+
+.card-walkers img {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border: 3px solid var(--primary-blue);
+}
+
+.card-walkers h3 {
+  color: var(--primary-blue);
+  font-size: 20px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.stars .full-star,
+.stars .half-star,
+.stars .empty-star {
+  color: var(--primary-blue);
+  font-size: 22px;
+  margin: 0 2px; /* Espacamento entre as estrelas */
+}
+
+.stars .empty-star {
+  color: lightgray;
+}
+
+.card-walkers .btn-walker {
+  padding: 5px 20px;
+  color: var(--primary-blue);
+  background: var(--light-blue);
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.card-walkers .btn-walker:hover {
+  color: var(--light-blue);
+  background: var(--primary-blue);
+  transform: scale(1.03);
+  transition: 0.2s;
+}

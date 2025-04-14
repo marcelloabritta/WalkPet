@@ -1,0 +1,65 @@
+.avaliacoes-container {
+  font-family: "Arial, sans-serif";
+  text-align: center;
+  background-color: #f0f5f7;
+  padding: 20px;
+}
+
+.review-list {
+  margin-bottom: 20px;
+}
+
+.review-card {
+  background-color: #ffc1c1;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.review-text {
+  font-size: 16px;
+  color: #1f3d3d;
+  margin-bottom: 20px;
+}
+
+.profile-section .name,
+.profile-section .rating,
+.profile-section .date {
+  font-size: 18px;
+  color: #1f3d3d;
+  margin: 5px 0;
+}
+
+.review-form input[type="text"],
+.review-form input[type="email"],
+.review-form textarea {
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.review-form input[type="number"] {
+  width: 60px;
+  margin: 10px 0;
+}
+
+.review-form button {
+  background-color: #8ee0c2;
+  color: #1f3d3d;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.review-form button:hover {
+  background-color: #76ccb1;
+}
+
+.rating-section label{
+    margin-right:10px;
+}

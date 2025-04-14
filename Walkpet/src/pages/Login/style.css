@@ -1,0 +1,109 @@
+.signup-container {
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    min-height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    z-index: 0;    
+    margin-top: 10px;      
+  }
+
+.cadastro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 350px;   
+}
+
+.cadastro img {
+    width: 150px;
+}
+
+.file-upload-label {
+    display: inline-block;         
+    padding: 10px 20px;           
+    background-color: #007BFF;   
+    color: white;                  
+    border-radius: 10px;          
+    cursor: pointer;               
+    font-size: 16px;               
+    text-align: center;            
+    border: none; 
+    width: 100%;                 
+  }
+  
+  .file-upload-label:hover {
+    background-color: #0056b3;   
+  }
+
+  .top-cadastro {
+    position: relative;
+    border-radius: 30px;
+    box-shadow: 0 0 7px 0 var(--primary-blue);
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .top-cadastro button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    padding: 10px 29px;
+    z-index: 2;
+  }
+
+  .btncolor-sign {
+    display: flex;
+    position: relative;
+    background-color: #f1f1f1;
+    border-radius: 30px;
+    width: 250px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btncolor-sign button{
+  flex: 1; /* Os botões ocupam o mesmo espaço */
+  text-align: center;
+  padding: 10px;
+  flex-grow: 1;
+  padding: 10px 29px;
+}
+
+
+
+.btncolor-sign button.active {
+    color: white;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background-color: var(--primary-blue);
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+}
+
+.slider.signIn {
+    transform: translateX(0%);
+}
+
+.slider.signUp {
+    transform: translateX(100%);
+}
+
+

@@ -1,0 +1,95 @@
+.contato {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.contato-cointainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F6F4F4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 0 15px;  
+}
+
+.contato-cointainer .left{
+    background-color: var(--primary-blue);
+    padding: 20px;
+    padding-right: 100px;
+    color: var(--light-blue);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.contato-cointainer .left-top h3{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contato-cointainer .left-top p{
+    display: flex;
+    align-items: center;
+}
+
+.contato-cointainer .left-top span{
+    margin-left: 10px;
+    font-weight: 300;
+}
+
+.contato-cointainer .left-top{
+    margin-bottom: 130px;
+}
+.contato-cointainer .left-bottom {
+    display: flex;
+}
+
+.contato-cointainer .left-bottom p{
+    margin-right: 30px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.contato-cointainer .right{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+.contato-cointainer .right label{
+    font-weight: bold;
+}
+
+.contato-cointainer .right input {
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 300px;
+}
+.contato-cointainer .right textarea {
+    width: 100%;
+    resize: none;
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+}
+
+.contato-cointainer .right button {
+    color: var(--light-blue);
+    background-color: var(--primary-blue);
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.contato-cointainer .right button:hover {
+    color: var(--primary-blue);
+    background-color: var(--light-blue);
+    transition: .2s;
+}

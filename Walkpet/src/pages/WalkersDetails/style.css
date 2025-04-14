@@ -1,0 +1,62 @@
+.walker-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 400px;
+  height: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  text-align: center;
+}
+
+.walker-profile img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 3px solid var(--primary-blue);
+}
+
+.walker-profile h3 {
+  color: var(--primary-blue);
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.walker-profile p {
+  margin-bottom: 10px;
+}
+
+.walker-profile h4 {
+  color: var(--primary-blue);
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.walker-profile button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: var(--primary-blue);
+  background: var(--light-blue);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.walker-profile button:hover {
+  color: var(--light-blue);
+  background-color: var(--primary-blue);
+  transition: 0.2s;
+  transform: scale(1.08);
+}
+
+.walkersDetails .breadcrumb h3 {
+  color: var(--primary-blue);
+  font-size: 50px;
+  position: absolute;
+}

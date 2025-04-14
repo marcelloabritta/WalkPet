@@ -1,0 +1,26 @@
+
+.signIn-form input{
+    padding: 10px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.signIn-form button{
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 10px;
+    color: var(--primary-blue);
+    background: var(--light-blue);
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.signIn-form button:hover {
+    color: var(--light-blue);
+    background: var(--primary-blue);
+    transition: .2s;
+}
+

@@ -1,0 +1,27 @@
+.signUp-form input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+
+.signUp-form button {
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: 10px;
+    color: var(--primary-blue);
+    background: var(--light-blue);
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.signUp-form button:hover {
+    color: var(--light-blue);
+    background: var(--primary-blue);
+}

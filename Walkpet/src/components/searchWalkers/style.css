@@ -1,0 +1,28 @@
+.input-wrapper {
+    border: 2px solid var(--primary-blue);
+    display: flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 65px;
+    width: 500px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+}
+
+.search-icon {
+    cursor: pointer;
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.search-icon:hover {
+    transform: scale(1.1);
+    transition: .2s;
+}

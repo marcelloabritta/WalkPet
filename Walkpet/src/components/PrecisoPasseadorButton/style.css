@@ -1,0 +1,17 @@
+.preciso-passeador-btn {
+    background: var(--light-blue);
+    border: none;
+    color: var(--primary-blue);
+    cursor: pointer;
+    padding: 15px 18px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 13px;
+}
+
+.preciso-passeador-btn:hover {
+    color: var(--light-blue);
+    background-color: var(--primary-blue);
+    transform: scale(1.03);
+    transition: .2s;
+}
