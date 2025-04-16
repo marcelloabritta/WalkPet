@@ -6,7 +6,7 @@ const SouPasseador = () => {
   return (
     <div>
       <Link to="/Login">
-      <button className='sou-passeador-btn'>Sou um passeador</button>
+      <button className='sou-passeador-btn'>Sou passeador</button>
       </Link>
     </div>
   )

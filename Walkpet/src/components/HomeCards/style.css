@@ -1,0 +1,88 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E6E6E6;
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.walker-photo {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 3px solid var(--primary-blue);
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.distancia {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--primary-blue);
+    font-weight: 600;
+    gap: 4px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.stars {
+    color: #f7b500;
+    font-size: 1.2rem;
+}
+
+.preco {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.btn-walker {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 3px 30px;
+    border-radius: 18px;
+    border: none;
+    font-weight: normal;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.btn-walker:hover {
+    background-color: #005f6b;
+}

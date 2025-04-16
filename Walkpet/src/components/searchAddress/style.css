@@ -1,0 +1,35 @@
+.input-wrapper {
+    border: 3px solid rgba(33, 82, 102, 0.7);
+    display: flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 17px;
+    width: 100%;
+    transition: border 0.3s ease;
+    margin-top: 20px;
+}
+
+.input-wrapper:focus-within {
+    border: 3px solid var(--primary-blue);
+}
+
+.input-wrapper input {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    padding: 4px;
+}
+
+.search-icon {
+    cursor: pointer;
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.search-icon:hover {
+    transform: scale(1.1);
+    transition: .2s;
+}

@@ -8,6 +8,10 @@ export class Passeador {
     senha,
     descricao,
     curiosidades,
+    cidade,
+    estado,
+    distancia,
+    preco,
     foto,
     avaliacoes = []
   ) {
@@ -19,7 +23,11 @@ export class Passeador {
     this.senha = senha;
     this.descricao = descricao;
     this.curiosidades = curiosidades;
-    this.foto = foto; // Garanta que este parâmetro esteja corretamente inicializado
+    this.cidade = cidade;
+    this.estado = estado;
+    this.distancia = distancia;
+    this.preco = preco;
+    this.foto = foto;
     this.avaliacoes = Array.isArray(avaliacoes) ? avaliacoes : [];
   }
 

@@ -12,6 +12,10 @@ export const inicializarPasseadores = () => {
       "senha123",
       "Passeadora experiente com amor por animais.",
       "Curiosidades sobre Maria que a tornam única na sua profissão.",
+      "Belo Horizonte",
+      "MG",
+      "3,2 km de distância",
+      "R$ 20,0 / hora",
       "/Maria.png",
       [
         new Avaliacao(
@@ -39,6 +43,10 @@ export const inicializarPasseadores = () => {
       "senha456",
       "Amo cães e caminhadas ao ar livre.",
       "João adora explorar novos parques e trilhas em suas caminhadas.",
+      "Belo Horizonte",
+      "MG",
+      "1km de distância",
+      "R$ 15,0 / hora",
       "/Joao.png",
       [
         new Avaliacao(
@@ -59,6 +67,10 @@ export const inicializarPasseadores = () => {
       "senha789",
       "Profissional dedicada e confiável.",
       "Ana tem um interesse especial por cuidar de pets com necessidades especiais.",
+      "Belo Horizonte",
+      "MG",
+      "8,6 km de distância",
+      "R$ 12,0 / hora",
       "/Ana.png",
       [
         new Avaliacao(
@@ -79,6 +91,10 @@ export const inicializarPasseadores = () => {
       "senha2024",
       "Amo pets e passear com eles é minha paixão",
       "Paulo também é voluntário em um abrigo de animais durante seus finais de semana.",
+      "Belo Horizonte",
+      "MG",
+      "6 km de distância",
+      "R$ 11,0 / hora",
       "/Paulo.png",
       [
         new Avaliacao(
@@ -118,6 +134,10 @@ export const carregarPasseadores = () => {
         pd.senha,
         pd.descricao,
         pd.curiosidades,
+        pd.cidade,     
+        pd.estado,    
+        pd.distancia,  
+        pd.preco,
         pd.foto,
         pd.avaliacoes.map(
           (av) =>

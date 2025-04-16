@@ -6,7 +6,7 @@ const PrecisoPasseador = () => {
   return (
     <div>
       <Link to='/passeadores'>
-      <button className='preciso-passeador-btn'>Preciso de um passeador</button>
+      <button className='preciso-passeador-btn'>Sou dono de pet</button>
       </Link>
     </div>
   )

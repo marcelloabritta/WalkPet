@@ -1,12 +1,13 @@
 .sou-passeador-btn {
-    background: var(--light-blue);
-    border: none;
+    background: white;
+    border: 3px solid var(--primary-blue);
     color: var(--primary-blue);
     cursor: pointer;
     padding: 15px 50px;
     font-size: 20px;
     font-weight: bold;
     border-radius: 13px;
+    transition: .3s;
 }
 
 .sou-passeador-btn:hover {

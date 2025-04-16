@@ -1,0 +1,30 @@
+.time-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E6E6E6;
+    border-radius: 20px;
+    padding: 7px 8px;
+}
+
+.time-btn input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--primary-blue);
+    font-size: 18px;
+    margin-left: 10px;
+    font-weight: 500;
+    background-image: none;
+}
+
+.time-btn input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 0; /* ou display: none; em alguns casos */
+    pointer-events: none;
+  }
+
+.time-btn label {
+    font-size: 22px;
+    font-weight: bolder;
+    color: var(--primary-blue);
+}
