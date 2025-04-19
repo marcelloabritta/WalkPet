@@ -1,0 +1,21 @@
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-blue); 
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .file-upload-label:hover {
+    background-color: #005f6b;
+  }
+
+  .imagePreview button{
+    width: 100%;
+  }

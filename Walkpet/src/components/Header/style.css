@@ -55,3 +55,27 @@
     border: none;
     margin-left: 20px;
 }
+
+.header-logout {
+    color: var(--light-blue);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: var(--primary-blue);
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 20px;
+}
+
+.header-perfil-btn {
+    border: none;
+    background: none;
+}
+
+.header-perfil {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}

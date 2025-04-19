@@ -2,6 +2,8 @@ import React from 'react';
 import walkPetLogo from '../../assets/walkpet.png'
 import { useUser } from '../../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import '../Header/style.css'
 
@@ -37,13 +39,13 @@ const Header = () => {
         <li>
               {user ? (
                 <>
-                <button className='header-perfil-btn'><Link to="/perfil" className='header-perfil'>Perfil</Link></button>
-                <Link to="/" onClick={() => { handleLogout(); }}>Logout</Link>
+                <button className='header-perfil-btn'><Link to="/perfil" className='header-perfil'><FontAwesomeIcon icon={faUser} /> </Link></button>
+                <Link className= 'header-logout' to="/" onClick={() => { handleLogout(); }}>Logout</Link>
                 </>
               ) : (
                 <>
                 <Link to="/login" className='header-login'>Entrar</Link>
-                <button className='header-register-btn'><Link to="/register" className='header-register'>Cadastrar</Link></button>
+                <button className='header-register-btn'><Link to="/cadastro" className='header-register'>Cadastrar</Link></button>
                 </>
               )}
             </li>

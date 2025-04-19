@@ -10,6 +10,7 @@ import Perfil from "./pages/Perfil";
 import Sobre from "./pages/SobreNos";
 import Avaliacoes from "./pages/Avaliacoes";
 import Contato from "./pages/Contato";
+import Cadastro from "./pages/Cadastro";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/avaliacoes/:nomeUsuario" element={<Avaliacoes />} />
             <Route path="/contato" element={<Contato />} />
+            <Route path="/cadastro" element={<Cadastro />}/>
           </Routes>
         </Router>
       </UserProvider>

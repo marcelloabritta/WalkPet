@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import "./style.css";
 
@@ -27,7 +27,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className="signIn-container">
       <form className="signIn-form" onSubmit={handleLogin}>
         <input
           type="text"
@@ -38,13 +38,14 @@ const LoginForm = () => {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           required
         />
+        <Link to='/cadastro' className="cadastro-link"> Cadastre-se</Link>
         <button type="submit" className="signin-btn">
-          Sign in
+          Entrar
         </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>

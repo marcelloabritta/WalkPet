@@ -1,8 +1,10 @@
-
 .signIn-form input{
     padding: 10px 10px;
     width: 100%;
     margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-blue);
+    font-weight: bold;
 }
 
 .signIn-form button{
@@ -22,5 +24,15 @@
     color: var(--light-blue);
     background: var(--primary-blue);
     transition: .2s;
+}
+
+.cadastro-link {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cadastro-link:hover {
+    text-decoration: underline;
 }
 

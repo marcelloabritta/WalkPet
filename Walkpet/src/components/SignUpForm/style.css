@@ -1,12 +1,25 @@
-.signUp-form input {
-    padding: 10px;
+.signUp {
+    height: 40px;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
     width: 100%;
-    margin-bottom: 20px;
+}
+
+.signUp-form input, .signUp-form select{
+    padding: 10px;
+    margin-bottom: 0px;
     border: 2px solid #ccc;
-    border-radius: 5px; 
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
+.signUp-form select {
+    width: 100%;
+}
 .signUp-form button {
     padding: 10px 20px;
     width: 100%;
@@ -24,4 +37,37 @@
 .signUp-form button:hover {
     color: var(--light-blue);
     background: var(--primary-blue);
+}
+
+.autocomplete-container {
+    position: relative;
+    width: 100%;
+}
+
+.autocomplete-container input{
+    width: 100%;
+}
+.sugestoes-cidade {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sugestoes-cidade li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sugestoes-cidade li:hover {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
 }

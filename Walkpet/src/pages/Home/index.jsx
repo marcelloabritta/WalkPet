@@ -66,7 +66,7 @@ const Home = () => {
           <div className="tipo-animal-select">
             <img src={pet} alt="" />
             <select name="Tipo de animal" defaultValue="">
-              <option value="" disabled selected>Tipo de animal</option>
+              <option value="" disabled >Tipo de animal</option>
               <option value="gato">Gato</option>
               <option value="cachorro">Cachorro</option>
             </select>

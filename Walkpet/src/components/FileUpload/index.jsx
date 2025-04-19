@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../FileUpload/style.css'
 
 const FileUpload = ( {setFoto}) => {
 
@@ -36,7 +37,7 @@ const FileUpload = ( {setFoto}) => {
                 {selectedFile ? 'Foto Escolhida' : 'Escolher Foto'}
             </label>
             {imagePreview && (
-                <div>
+                <div className='imagePreview'>
                     <h3>Pré-visualização:</h3>
                     <img src={imagePreview} alt="Pré-visualização" style={{ maxWidth: '200px', marginTop: '10px' }} />
                     <button onClick={clearImage}>Limpar Imagem</button>
