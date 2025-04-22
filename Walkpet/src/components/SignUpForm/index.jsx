@@ -4,6 +4,11 @@ import FileUpload from "../FileUpload";
 import "../SignUpForm/style.css";
 import axios from "axios";
 import { Passeador } from "../../models/passeador";
+import defaultProfile from "../../assets/profilePic.png"
+import PessoalStep from "./Steps/PessoallStep";
+import LoginStep from "./Steps/LoginStep";
+import LocalizacaoStep from "./Steps/LocalizacaoStep";
+import ExtraStep from "./Steps/ExtraStep";
 
 
 const SignUpForm = () => {
@@ -11,6 +16,7 @@ const SignUpForm = () => {
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]);
   const [buscaCidade, setBuscaCidade] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -62,6 +68,67 @@ const SignUpForm = () => {
     }
   }, [estado]);
 
+
+    
+
+  const steps = ["Pessoal", "Login", "Localização", "Extras"];
+  const [stepAtual, setStepAtual] = useState(0);
+
+  const isStepValid = () => {
+    switch (stepAtual) {
+      case 0:
+        if (!nome || !nomeUsuario || !cpf) {
+          setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
+          return false;
+        }
+        setErrorMessage(""); // Limpa a mensagem de erro
+        return true;
+      case 1:
+        if (!email || !senha || !confirmarSenha) {
+          setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
+          return false;
+        }
+        if (senha !== confirmarSenha) {
+          setErrorMessage("As senhas não coincidem!");
+          return false;
+        }
+        setErrorMessage(""); // Limpa a mensagem de erro
+        return true;
+      case 2:
+        if (!estado || !cidade.trim()) {
+          setErrorMessage("Por favor, selecione um estado e uma cidade.");
+          return false;
+        }
+        setErrorMessage(""); // Limpa a mensagem de erro
+        return true;
+      case 3:
+        if (!preco) {
+          setErrorMessage("Por favor, preencha o campo de preço.");
+          return false;
+        }
+        setErrorMessage(""); // Limpa a mensagem de erro
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  const nextStep = () => {
+    const valid = isStepValid();
+    if (valid) {
+      setStepAtual(stepAtual + 1);
+      setErrorMessage(""); // Limpa a mensagem de erro ao avançar para o próximo passo
+    }
+  };
+
+  useEffect(() => {
+    setErrorMessage(""); // Limpa a mensagem de erro toda vez que a etapa muda
+  }, [stepAtual]);
+
+  const prevStep = () => {
+    if (stepAtual > 0) setStepAtual(stepAtual - 1);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -74,6 +141,11 @@ const SignUpForm = () => {
     e.preventDefault();
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem!");
+      return;
+    }
+
+    if (!isStepValid()) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
@@ -103,8 +175,9 @@ const SignUpForm = () => {
       curiosidades,
       cidade,
       estado,
+      null,
       preco,
-      foto,
+      foto || defaultProfile,
       [], // Avaliações inicialmente vazias
     );
 
@@ -118,11 +191,11 @@ const SignUpForm = () => {
       email,
       senha,
       descricao,
-      foto,
       curiosidades,
       cidade,
       estado,
-      preco
+      preco,
+      foto: foto || defaultProfile,
     });
     localStorage.setItem("users", JSON.stringify(storedUsers));
 
@@ -132,131 +205,68 @@ const SignUpForm = () => {
 
   return (
     <div className="signUp">
-      <form className="signUp-form" onSubmit={handleSignup}>
+      <div className="progress-container">
+          <p className="progress-text">Etapa {stepAtual + 1} de {steps.length}</p>
+          <div className="progress">
+          <div className="progress-bar" style={{ width: `${((stepAtual + 1) / steps.length) * 100}%` }}></div>
+          </div>
+        </div>
+
+      <form className="signUp-form" onSubmit={handleSignup} onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}>
         <div className="form">
+          {stepAtual === 0 && (
+            <>
+              <PessoalStep formData={formData} handleInputChange={handleInputChange}/>
+            </>
+          )}
 
-        <input
-          type="text"
-          name="nome"
-          placeholder="Nome"
-          value={nome}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="nomeUsuario"
-          placeholder="Nome de Usuário"
-          value={nomeUsuario}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="cpf"
-          placeholder="CPF"
-          value={cpf}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="senha"
-          placeholder="Senha"
-          value={senha}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirmarSenha"
-          placeholder="Confirmar Senha"
-          value={confirmarSenha}
-          onChange={handleInputChange}
-          required
-        />
+          {stepAtual === 1 && (
+            <>
+              <LoginStep formData={formData} handleInputChange={handleInputChange}/>
+            </>
+          )}
 
-        <select
-          name="estado"
-          value={estado}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="">Selecione um estado</option>
-          {estados.map((uf) => (
-            <option key={uf.id} value={uf.sigla}>
-              {uf.sigla}
-            </option>
-          ))}
-        </select>
+          {stepAtual === 2 && (
+            <>
+              <LocalizacaoStep 
+              formData={formData}
+              handleInputChange={handleInputChange}
+              estados={estados}
+              cidades={cidades}
+              buscaCidade={buscaCidade}
+              setBuscaCidade={setBuscaCidade}/>
+            </>
+          )}
 
-
-        <div className="autocomplete-container">
-          <input
-            type="text"
-            name="cidade"
-            placeholder="Digite sua cidade..."
-            value={cidade}
-            onChange={(e) => {
-              setFormData({ ...formData, cidade: e.target.value });
-              setBuscaCidade(e.target.value);
-            }}
-            autoComplete="off"
-            disabled={!estado}
-            required
-          />
-          {buscaCidade && cidade.length > 0 && (
-            <ul className="sugestoes-cidade">
-              {cidades
-                .filter((c) =>
-                  c.nome.toLowerCase().includes(buscaCidade.toLowerCase())
-                )
-                .slice(0, 5)
-                .map((c) => (
-                  <li
-                    key={c.id}
-                    onClick={() => {
-                      setFormData({ ...formData, cidade: c.nome });
-                      setBuscaCidade("");
-                    }}
-                  >
-                    {c.nome}
-                  </li>
-                ))}
-            </ul>
+          {stepAtual === 3 && (
+            <>
+              <ExtraStep formData={formData} handleInputChange={handleInputChange} setFormData={setFormData} />
+            </>
           )}
         </div>
 
+      
+      <div className="navegacao">
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        {stepAtual > 0 && (
+          <button type="button" onClick={prevStep} className="voltar">
+            Voltar
+          </button>
+        )}
 
-        <input
-          type="text"
-          name="descricao"
-          placeholder="Descrição"
-          value={descricao}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="curiosidades"
-          placeholder="Curiosidades"
-          value={curiosidades}
-          onChange={handleInputChange}
-          required
-        />
-        </div>
-        <FileUpload
-          setFoto={(file) => setFormData({ ...formData, foto: file })}
-        />
-        <button type="submit">Cadastrar</button>
+        {stepAtual < steps.length - 1 ? (
+          <button type="button" onClick={nextStep} className="avancar">
+            Avançar
+          </button>
+        ) : (
+          <div className="signUp-form">
+            <FileUpload
+              setFoto={(file) => setFormData({ ...formData, foto: file })}
+            />
+            <button type="submit" className="form-btn">Cadastrar</button>
+          </div>
+        )}
+      </div>
       </form>
     </div>
   );

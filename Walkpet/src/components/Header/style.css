@@ -1,8 +1,14 @@
 .header {
     display: flex;
-    background: var(--light-blue);
-    position: relative; 
     z-index: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+    background: rgba(159, 237, 222, 0.8);
+    backdrop-filter: blur(8px);
+    transition: background 0.3s ease;
 }
 
 .header-container {
@@ -18,13 +24,13 @@
     margin-top: 5px;
 }
 
-.header ul{
+.header ul {
     display: flex;
     list-style: none;
     gap: 25px;
 }
 
-.header ul .link-header{
+.header ul .link-header {
     color: var(--primary-blue);
     text-decoration: none;
     font-weight: 500;

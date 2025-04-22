@@ -3,33 +3,40 @@ import "../Passeadores/style.css";
 import Card from "../../components/Card";
 import GetWalkers from "../../Hook/GetWalkers";
 import { Link } from "react-router-dom";
-import walkPetTransparent from "../../assets/walkpet_logo_transparent.png";
+import passeador1 from "../../assets/passeador1.png";
+import passeador2 from "../../assets/passeador2.png";
 import { useLocation } from "react-router-dom";
 
 const Passeadores = () => {
   const location = useLocation();
-  const walkers = GetWalkers(); 
+  const walkers = GetWalkers();
 
   return (
     <div className="walkers-container">
       <div className="walkers-top">
-        <div className="breadcrumb">
-          <Link className="breadcrumb-text" to="/">
-            <h3>Home</h3>
-          </Link>
-          <Link className="breadcrumb-text" to="/passeadores">
-            <span>
-              <span>&gt;</span> Passeadores
-            </span>
-          </Link>
+        <h1>Passeadores</h1>
+
+        <div className="search-walkers">
+
         </div>
-        <img src={walkPetTransparent} alt="WalkPet" />
+
       </div>
+
       <div className="walkers-bottom">
-        {walkers.map((item) => (
-          <Card key={item.username} walkers={item}></Card>
-        ))}
+
+        <div className="walkers-left">
+          <img src={passeador1} alt="" />
+        </div>
+        <div className="walkers-mid">
+          {walkers.map((item) => (
+            <Card key={item.username} walkers={item}></Card>
+          ))}
+        </div>
+        <div className="walkers-right">
+          <img src={passeador2} alt="" />
+        </div>
       </div>
+
     </div>
   );
 };

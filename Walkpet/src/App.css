@@ -2,3 +2,7 @@
   --light-blue: #9fedde;
   --primary-blue: #215266;
 }
+
+.main-content {
+  padding-top: 80px; /* ou o tamanho da altura do seu Header */
+}

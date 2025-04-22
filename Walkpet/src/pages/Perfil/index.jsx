@@ -27,6 +27,10 @@ const Perfil = () => {
     }
   }, [user, navigate]);
 
+  if (!user) {
+    return null; 
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({

@@ -15,7 +15,7 @@ export const inicializarPasseadores = () => {
       "Belo Horizonte",
       "MG",
       "3,2 km de distância",
-      "R$ 20,0 / hora",
+      20,
       "/Maria.png",
       [
         new Avaliacao(
@@ -46,7 +46,7 @@ export const inicializarPasseadores = () => {
       "Belo Horizonte",
       "MG",
       "1km de distância",
-      "R$ 15,0 / hora",
+      15,
       "/Joao.png",
       [
         new Avaliacao(
@@ -70,7 +70,7 @@ export const inicializarPasseadores = () => {
       "Belo Horizonte",
       "MG",
       "8,6 km de distância",
-      "R$ 12,0 / hora",
+      12,
       "/Ana.png",
       [
         new Avaliacao(
@@ -94,7 +94,7 @@ export const inicializarPasseadores = () => {
       "Belo Horizonte",
       "MG",
       "6 km de distância",
-      "R$ 11,0 / hora",
+      11,
       "/Paulo.png",
       [
         new Avaliacao(
@@ -136,7 +136,7 @@ export const carregarPasseadores = () => {
         pd.curiosidades,
         pd.cidade,     
         pd.estado,    
-        pd.distancia,  
+        pd.distancia || null,  
         pd.preco,
         pd.foto,
         pd.avaliacoes.map(

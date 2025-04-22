@@ -11,13 +11,16 @@ import Sobre from "./pages/SobreNos";
 import Avaliacoes from "./pages/Avaliacoes";
 import Contato from "./pages/Contato";
 import Cadastro from "./pages/Cadastro";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
       <UserProvider>
         <Router>
+        <ScrollToTop />
           <Header />
+          <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -32,6 +35,7 @@ function App() {
             <Route path="/contato" element={<Contato />} />
             <Route path="/cadastro" element={<Cadastro />}/>
           </Routes>
+          </main>
         </Router>
       </UserProvider>
     </>
