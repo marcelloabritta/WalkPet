@@ -200,7 +200,7 @@ const SignUpForm = () => {
     localStorage.setItem("users", JSON.stringify(storedUsers));
 
     alert("Usuário cadastrado com sucesso!");
-    navigate("/");
+    navigate("/login");
   };
 
   return (

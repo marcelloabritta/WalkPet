@@ -40,15 +40,15 @@
     background: var(--primary-blue);
 }
 
-.autocomplete-container {
+.form .autocomplete-container {
     position: relative;
     width: 100%;
 }
 
-.autocomplete-container input{
+.form .autocomplete-container input{
     width: 100%;
 }
-.sugestoes-cidade {
+.form .sugestoes-cidade {
     position: absolute;
     top: 100%;
     left: 0;

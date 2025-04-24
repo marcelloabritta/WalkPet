@@ -72,7 +72,7 @@ const HomeCards = ({ walkers }) => {
                         />
                     ))}
                 </div>
-                <div className="preco">{walkers.preco}</div>
+                <div className="preco">R$ {parseFloat(walkers.preco).toFixed(2)} / hora</div>
                 <Link to={`/passeadores/${walkers.username}`}>
                         <button className="btn-walker">Ver Perfil</button>
                       </Link>
