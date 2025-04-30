@@ -37,6 +37,12 @@ const Perfil = () => {
     if (!user) {
       navigate("/login");
     }
+    const passeadores = JSON.parse(localStorage.getItem("passeadores")) || [];
+    const passeadorAtualizado = passeadores.find(p => p.username === user.nomeUsuario);
+
+    if (passeadorAtualizado) {
+      setFormData(prev => ({ ...prev, avaliacoes: passeadorAtualizado.avaliacoes || [] }));
+    }
   }, [user, navigate]);
 
   if (!user) {
@@ -134,12 +140,12 @@ const Perfil = () => {
 
   const handleCancel = () => {
     setFormData(originalData);
-    setIsEditing(false); 
+    setIsEditing(false);
   };
 
-  const totalAvaliacoes = Array.isArray(user.avaliacoes) ? user.avaliacoes.length : 0;
-const totalEstrelas = Array.isArray(user.avaliacoes)
-  ? user.avaliacoes.reduce((acc, curr) => acc + (curr.estrelas || 0), 0)
+  const totalAvaliacoes = Array.isArray(formData.avaliacoes) ? formData.avaliacoes.length : 0;
+const totalEstrelas = Array.isArray(formData.avaliacoes)
+  ? formData.avaliacoes.reduce((acc, curr) => acc + (curr.estrelas || 0), 0)
   : 0;
 
 
@@ -214,13 +220,13 @@ const totalEstrelas = Array.isArray(user.avaliacoes)
           )}
           {isEditing && (
             <div className="botoes-edicao">
-            <button onClick={handleCancel} className="cancel-btn">
-              Cancelar
-            </button>
-            <button onClick={handleSave} className="save-edit">
-            Salvar
-          </button>
-          </div>
+              <button onClick={handleCancel} className="cancel-btn">
+                Cancelar
+              </button>
+              <button onClick={handleSave} className="save-edit">
+                Salvar
+              </button>
+            </div>
           )}
 
           <p>
@@ -332,12 +338,12 @@ const totalEstrelas = Array.isArray(user.avaliacoes)
             )}
           </p>
 
-        
+
         </div>
       </div>
       <div className="perfil-bottom">
 
-      <div className="stars">
+        <div className="stars">
 
           {[...Array(fullStars)].map((_, index) => (
             <FontAwesomeIcon
@@ -363,7 +369,7 @@ const totalEstrelas = Array.isArray(user.avaliacoes)
           ))}
         </div>
         <Link to={`/avaliacoes/${user.nomeUsuario}`} className="avaliacoes">
-         Ver Avaliações
+          Ver Avaliações
         </Link>
       </div>
     </div>
