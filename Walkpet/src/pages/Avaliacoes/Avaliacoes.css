@@ -1,20 +1,43 @@
-.avaliacoes-container {
-  font-family: "Arial, sans-serif";
+.avaliacoes {
   text-align: center;
-  background-color: #f0f5f7;
   padding: 20px;
 }
 
+.avaliacoes h1 {
+  color: var(--primary-blue);
+}
+
+.avaliacoes-container {
+  display: flex;
+  justify-content: center;
+}
+
+.avaliacoes-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.avaliacoes-right {
+  margin-left: 60px;
+  position: relative;
+  align-items: center;
+  justify-items: center;
+}
+
+.avaliacoes-right img{
+  width: 400px;
+}
+
 .review-list {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .review-card {
-  background-color: #ffc1c1;
   padding: 20px;
   border-radius: 10px;
   margin: 10px 0;
   text-align: left;
+  border: 3px solid var(--primary-blue);
 }
 
 .review-text {
@@ -31,26 +54,29 @@
   margin: 5px 0;
 }
 
+.review-form {
+  border: 3px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .review-form input[type="text"],
 .review-form input[type="email"],
 .review-form textarea {
   width: 90%;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 10px;
   border: 2px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
-.review-form input[type="number"] {
-  width: 60px;
-  margin: 10px 0;
-}
 
 .review-form button {
   background-color: #8ee0c2;
+  font-weight: 600;
   color: #1f3d3d;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   margin-top: 10px;
@@ -62,4 +88,77 @@
 
 .rating-section label{
     margin-right:10px;
+}
+
+.rating-section .star {
+  transition: color 0.2s;
+}
+
+.rating-section .star-input {
+  gap: 4px;
+}
+
+.mensagem-sucesso {
+  display: flex;
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--primary-blue);
+  width: 200px;
+  padding: 10px;
+}
+
+
+.review-card {
+  max-width: 100%;
+  width: 100%;
+  padding: 10px; 
+}
+
+.review-carousel {
+  width: 400px; 
+  height: 200px; 
+  margin: 0 auto;
+  position: relative; 
+  overflow: visible;
+}
+
+
+.review-carousel .slick-prev::before,
+.review-carousel .slick-next::before {
+  font-size: 40px;
+  color: var(--primary-blue);
+}
+
+.review-carousel .slick-prev,
+.review-carousel .slick-next {
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.review-carousel .slick-prev {
+  left: -50px; /* ou -60px se quiser mais afastado */
+}
+
+.review-carousel .slick-next {
+  right: -50px;
+}
+
+.review-carousel .slick-dots {
+  bottom: -10px; /* mais perto do carrossel */
+}
+.review-carousel .slick-dots li button:before {
+  font-size: 10px;
+  color: var(--primary-blue); /* ou outra cor */
+  opacity: 0.3;
+}
+.review-carousel .slick-dots li.slick-active button:before {
+  color: var(--primary-blue);
+  opacity: 1;
 }
