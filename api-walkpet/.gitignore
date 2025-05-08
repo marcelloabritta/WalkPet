@@ -1,0 +1,12 @@
+# Ignorar binários e arquivos temporários
+/bin/
+/obj/
+
+# Ignorar o arquivo .env
+.env
+
+# Ignorar arquivos de configuração específicos
+appsettings.json
+
+# Ignorar a pasta de migrations do EF (se não precisar versionar)
+Migrations/
