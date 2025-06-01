@@ -42,7 +42,7 @@ Os wireframes abaixo ilustram a estrutura e os elementos fundamentais das princi
 
 ### 1. Página Inicial
 
-![Página Inicial](img/Home.PNG)
+![Página Inicial](img/Home.PNG.png)
 
 **Descrição**: A página inicial é a porta de entrada para os usuários do WalkPet. Ela oferece opções claras para os usuários:
 - **"Preciso de um passeador"**: Leva o usuário à página de busca de passeadores.
@@ -52,7 +52,7 @@ Os wireframes abaixo ilustram a estrutura e os elementos fundamentais das princi
 
 ### 2. Página de Login
 
-![Página de Login](img/Login.PNG)
+![Página de Login](img/Login.PNG.png)
 
 **Descrição**: A página de login permite que os usuários insiram suas credenciais (e-mail ou CPF e senha) para acessar o sistema.
 - Há também opções para "Esqueceu sua senha?" e "Cadastre-se" caso o usuário não tenha uma conta ou precise recuperar o acesso.
@@ -60,14 +60,14 @@ Os wireframes abaixo ilustram a estrutura e os elementos fundamentais das princi
 
 ### 3. Página "Sobre Nós"
 
-![Página Sobre Nós](img/Sobrenos.PNG)
+![Página Sobre Nós](img/Sobrenos.PNG.png)
 
 **Descrição**: A seção "Sobre Nós" apresenta informações sobre a missão e os valores da WalkPet, destacando a quantidade de passeadores avaliados e os passeios realizados.
 - Os botões "Junte-se a nós" e "Procuro um passeador" permitem que o usuário navegue facilmente para as seções de cadastro e busca de passeadores, mantendo a experiência de navegação fluida.
 
 ### 4. Lista de Passeadores
 
-![Lista de Passeadores](img/Passeadores.PNG)
+![Lista de Passeadores](img/Passeadores.PNG.png)
 
 **Descrição**: Nesta página, os usuários encontram uma lista de passeadores disponíveis, com fotos, nomes e classificações por estrelas.
 - Cada passeador possui um botão "Saiba mais," que direciona o usuário para o perfil detalhado do passeador.
@@ -75,7 +75,7 @@ Os wireframes abaixo ilustram a estrutura e os elementos fundamentais das princi
 
 ### 5. Perfil do Passeador
 
-![Perfil do Passeador](img/Passeador.PNG)
+![Perfil do Passeador](img/Passeador.PNG.png)
 
 **Descrição**: A página de perfil do passeador mostra informações detalhadas, como uma breve descrição, curiosidades e avaliações do usuário.
 - Oferece a opção de "Entrar em contato," que redireciona para a seção de chat, facilitando a comunicação entre o cliente e o passeador.
@@ -84,7 +84,7 @@ Os wireframes abaixo ilustram a estrutura e os elementos fundamentais das princi
 
 ### 6. Página de Avaliações
 
-![Página de Avaliações](img/Avaliacoes.PNG)
+![Página de Avaliações](img/Avaliacoes.PNG.png)
 
 **Descrição**: A página de "Avaliações" permite aos usuários ver os comentários e classificações dados pelos clientes para os passeadores. Neste exemplo, temos uma avaliação do passeador "Bernardo," com destaque para a experiência positiva do cliente em relação aos cuidados especiais do seu animal.
 - O design inclui uma foto do passeador, o nome e uma classificação de estrelas, proporcionando uma visão rápida da reputação do passeador.
