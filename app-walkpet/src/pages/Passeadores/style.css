@@ -1,50 +1,79 @@
 .walkers-top h1 {
-    text-align: center;
-    color: var(--primary-blue);
-    font-size: 40px;
-    margin-top: 17px;
+  text-align: center;
+  color: var(--primary-blue);
+  font-size: 40px;
+  margin-top: 17px;
 }
 
 .walkers-top {
-    display: flex;                 
-    flex-direction: column;       
-    justify-content: center;       
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
 }
 
-
-
+/* Grid for cards: two columns by default */
 .walkers-mid {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  gap: 20px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 40px 0;
+  box-sizing: border-box;
 }
 
-.walkers-mid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* dois cards por linha */
-    gap: 20px;
-    width: 60%;
-    margin: 0 auto;
-    padding: 40px 0;
-  }
-  
-
+/* Wrap side images and cards container */
 .walkers-bottom {
- display: flex;
+  display: flex;
+  position: relative;
 }
 
 .walkers-bottom .walkers-left img,
-.walkers-bottom .walkers-right img{
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 300px;
-    opacity: 0.9;
-    z-index: 0;
-}
 .walkers-bottom .walkers-right img {
-    right: 20px; 
-    width: 280px    ;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.walkers-bottom .walkers-right img {
+  right: 20px;
+  width: 280px;
+}
+
+/* Hide side images when viewport is narrower than 1200px */
+@media (max-width: 1200px) {
+  .walkers-left,
+  .walkers-right {
+    display: none;
   }
+  .walkers-mid {
+    width: 100%;
+    padding: 20px 10px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* On medium screens (max-width 992px), still two columns */
+@media (max-width: 992px) {
+  .walkers-mid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* On smaller screens (max-width 768px), switch to single column */
+@media (max-width: 768px) {
+  .walkers-bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+  .walkers-mid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 20px 10px;
+  }
+}
