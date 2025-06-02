@@ -1,38 +1,49 @@
-.signIn-form input{
-    padding: 10px 10px;
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: 2px solid var(--primary-blue);
-    font-weight: bold;
+.signIn-form input {
+  padding: 10px 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--primary-blue);
+  font-weight: bold;
 }
 
-.signIn-form button{
-    padding: 10px 0;
-    width: 100%;
-    margin-top: 10px;
-    color: var(--primary-blue);
-    background: var(--light-blue);
-    font-weight: 500;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+.signIn-form button {
+  padding: 10px 0;
+  width: 100%;
+  margin-top: 10px;
+  color: var(--primary-blue);
+  background: var(--light-blue);
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .signIn-form button:hover {
-    color: var(--light-blue);
-    background: var(--primary-blue);
-    transition: .2s;
+  color: var(--light-blue);
+  background: var(--primary-blue);
+  transition: 0.2s;
 }
 
 .cadastro-link {
-    color: var(--primary-blue);
-    text-decoration: none;
-    font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  color: var(--primary-blue);
+  background: var(--white);
+  border: 2px solid var(--primary-blue);
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .cadastro-link:hover {
-    text-decoration: underline;
+  color: var(--light-blue);
+  background: var(--primary-blue);
+  transition: 0.2s;
 }
-

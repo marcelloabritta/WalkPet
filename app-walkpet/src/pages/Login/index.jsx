@@ -1,11 +1,12 @@
+// src/pages/Login/index.jsx
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SignInForm from "../../components/SignInForm";
-import loginImg from '../../assets/LoginIMG.png'
+import loginImg from "../../assets/LoginIMG.png";
 import "../Login/style.css";
-import desenhoLogin from '../../assets/DesenhoLogin.png'
-import patas from "../../assets/patas.png"
-
+import desenhoLogin from "../../assets/DesenhoLogin.png";
+import patas from "../../assets/patas.png";
+import { createContext, useContext, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,17 +29,14 @@ const Login = () => {
           <SignInForm />
         </div>
       </div>
-        <div className="signin-right">
-          <img src={patas} alt="" />
-        </div>
+      <div className="signin-right">
+        <img src={patas} alt="" />
+      </div>
     </div>
   );
 };
 
 export default Login;
-
-import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -46,9 +44,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const login = async (credentials) => {
-   
-  };
+  const login = async (credentials) => {};
 
   return (
     <AuthContext.Provider value={{ user, login }}>

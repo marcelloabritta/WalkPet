@@ -19,8 +19,8 @@ const LoginForm = () => {
 
     if (user) {
       localStorage.setItem("loggedInUser", JSON.stringify(user));
-      login(user); 
-      navigate("/"); 
+      login(user);
+      navigate("/");
     } else {
       setError("Nome de usuário ou senha incorretos.");
     }
@@ -43,7 +43,9 @@ const LoginForm = () => {
           onChange={(e) => setSenha(e.target.value)}
           required
         />
-        <Link to='/cadastro' className="cadastro-link"> Cadastre-se</Link>
+        <Link to="/cadastro" className="cadastro-link">
+          Cadastre-se
+        </Link>
         <button type="submit" className="signin-btn">
           Entrar
         </button>

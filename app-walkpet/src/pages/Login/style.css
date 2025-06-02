@@ -1,32 +1,74 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .signin-container {
   display: flex;
-  margin-top: 80px;
-  gap: 20px;
-}
-.login {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 300px;
+  width: 100vw;
+  height: 90vh;
+  gap: 20px;
+  box-sizing: border-box;
 }
+
+.signin-left,
+.login,
+.signin-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.login {
+  flex: 1 1 300px;
+  max-width: 400px;
+  flex-direction: column;
+  margin-top: -100px;
+}
+
+.signin-left img {
+  max-width: 100%;
+  height: auto;
+}
+
 .login img {
   width: 200px;
-  padding-bottom: 40px;
+  margin-bottom: 40px;
 }
-.signin-left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 100px;
+
+.container-cadastro {
+  width: 100%;
 }
-.signin-left img {
-  width: 430px;
-}
-.signin-right {
-  display: center;
-  align-items: center;
-  justify-content: center;
-}
+
 .signin-right img {
-  width: 300px;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .signin-container {
+    flex-direction: column;
+    height: auto;
+    padding: 40px 20px;
+  }
+  .signin-left,
+  .signin-right {
+    display: none;
+  }
+  .login {
+    margin-top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  .login img {
+    width: 150px;
+    margin-bottom: 20px;
+  }
 }

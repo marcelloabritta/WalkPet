@@ -1,139 +1,137 @@
 .perfil h3 {
-    color: var(--primary-blue);
-    font-size: 40px;
-    text-align: center;
-    margin: 10px;
+  color: var(--primary-blue);
+  font-size: 40px;
+  text-align: center;
+  margin: 10px;
 }
 
 .perfil-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .perfil-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 50px;
-    justify-content: center;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
 }
 
 .perfil-left p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    margin-top: 10px;
-    color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .perfil-left span {
-    font-weight: 600;
-    color: black;
+  font-weight: 600;
+  color: black;
 }
 
 .perfil-left img {
-    border-radius: 50%;
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border: 8px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border: 8px solid var(--primary-blue);
 }
 
 .perfil-left label {
-    color: #5ca3b9;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px 0;
-}
-
-.perfil-left .edit-foto span {
-    margin-left: 5px;
+  color: #5ca3b9;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
 }
 
 .perfil-left h2 {
-    color: var(--primary-blue);
-    font-weight: bold;
-    font-size: 30px;
-}
-
-.editing-txt {
-    margin-right: 10px;
+  color: var(--primary-blue);
+  font-weight: bold;
+  font-size: 30px;
 }
 
 .perfil-left .contact-span {
-    color: var(--primary-blue);
-    font-weight: bold;
-    font-size: 20px;
+  color: var(--primary-blue);
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .perfil-left .contact-icon {
-    margin-right: 10px;
-    align-items: center;
+  margin-right: 10px;
+  align-items: center;
 }
 
 .perfil-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 400px;
-    border: 3px solid var(--primary-blue);
-    border-radius: 10px;
-    padding: 23px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  border: 3px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 23px;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .perfil-right h4 {
-    color: var(--primary-blue);
+  color: var(--primary-blue);
 }
 
 .perfil-right p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .perfil-right span {
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: black;
-    margin-right: 5px;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: black;
+  margin-right: 5px;
 }
 
 .perfil-left input,
 .perfil-right input,
 .perfil-right textarea,
 .perfil-right select {
-    padding: 0.6rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
-    transition: border 0.3s, box-shadow 0.3s;
-    background-color: #fafafa;
-    flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  transition: border 0.3s, box-shadow 0.3s;
+  background-color: #fafafa;
+  flex: 1;
+  box-sizing: border-box;
 }
 
 .perfil-right input:focus,
 .perfil-right textarea:focus,
 .perfil-right select:focus {
-    border-color: #4caf50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-    outline: none;
-    background-color: #fff;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  outline: none;
+  background-color: #fff;
 }
 
 .botoes-edicao {
-    display: flex;
+  display: flex;
   width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 20px;
 }
+
 .botoes-edicao .cancel-btn,
 .botoes-edicao .save-edit {
   flex: 1;
@@ -146,78 +144,75 @@
   color: white;
   background-color: var(--primary-blue);
   transition: background-color 0.3s;
-  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .botoes-edicao .save-edit {
-  margin-right: 0.5rem;
-  border: 3px solid var(--primary-blue);
   background-color: white;
   color: var(--primary-blue);
-}
-
-.botoes-edicao .save-edit {
-  margin-left: 0.5rem;
+  border: 3px solid var(--primary-blue);
 }
 
 .edit-btn {
-    margin-top: 1rem;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-    background-color: var(--primary-blue);
-    color: white;
-}
-
-.edit-btn {
-    margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  background-color: var(--primary-blue);
+  color: white;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .edit-btn:hover,
 .save-edit:hover,
 .cancel-btn:hover {
-    background-color: #005f6b;
-    color: white;
+  background-color: #005f6b;
+  color: white;
 }
 
 .perfil-right .sugestoes-cidade {
-    position: absolute;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    top: 100%;
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  top: 100%;
+  box-sizing: border-box;
 }
 
 .perfil-right .sugestoes-cidade li {
-    padding: 10px;
-    cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .perfil-right .sugestoes-cidade li:hover {
-    background-color: var(--light-blue);
-    color: var(--primary-blue);
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
 }
 
 .autocomplete-container {
-    position: relative;
+  position: relative;
 }
 
 .perfil-bottom {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .perfil-bottom .stars .full-star,
@@ -227,7 +222,101 @@
 }
 
 .perfil-bottom .avaliacoes {
-    text-decoration: none;
-    color: var(--primary-blue);
-    margin-top: 5px;
+  text-decoration: none;
+  color: var(--primary-blue);
+  margin-top: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .perfil-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .perfil-left {
+    margin-right: 0;
+  }
+
+  .perfil-right {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .perfil h3 {
+    font-size: 32px;
+    margin: 5px;
+  }
+
+  .perfil-container {
+    padding: 0 10px;
+  }
+
+  .perfil-left img {
+    width: 150px;
+    height: 150px;
+    border-width: 6px;
+  }
+
+  .perfil-left p,
+  .perfil-right p {
+    font-size: 0.9rem;
+  }
+
+  .perfil-left h2 {
+    font-size: 24px;
+  }
+
+  .perfil-right {
+    padding: 16px;
+    border-width: 2px;
+  }
+
+  .botoes-edicao .cancel-btn,
+  .botoes-edicao .save-edit,
+  .edit-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .perfil-container {
+    gap: 1rem;
+  }
+
+  .perfil-left img {
+    width: 120px;
+    height: 120px;
+    border-width: 4px;
+  }
+
+  .perfil-left h2 {
+    font-size: 20px;
+  }
+
+  .perfil-right input,
+  .perfil-right textarea,
+  .perfil-right select {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .perfil-right {
+    padding: 12px;
+    border-width: 2px;
+  }
+
+  .perfil-bottom .stars .full-star,
+  .perfil-bottom .stars .half-star,
+  .perfil-bottom .stars .empty-star {
+    font-size: 24px;
+  }
+
+  .perfil-bottom .avaliacoes {
+    font-size: 0.9rem;
+  }
 }
