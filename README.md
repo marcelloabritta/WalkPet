@@ -20,10 +20,6 @@ O projeto é uma plataforma digital que facilite o agendamento de passeios para 
 * Will Ricardo dos Santos Machado
 
 
-## Instruções de utilização
-
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
-
 # Documentação
 
 <ol>
@@ -42,10 +38,148 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 <li><a href="docs/13-Referências.md"> Referências</a></li>
 </ol>
 
-# Código
+# 🚀 Como Executar o Frontend React
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+Este guia mostra como instalar e rodar localmente o frontend React do projeto **app-walkpet**.
 
-# Apresentação
+---
 
-<li><a href="presentation/README.md"> Apresentação da solução</a></li>
+## 1. Pré-requisitos
+
+- [Node.js](https://nodejs.org/) (recomendado v18+)
+- npm (vem junto com o Node.js)
+- (Opcional) yarn – se preferir usar Yarn em vez de npm
+
+---
+
+## 2. Instalar dependências
+
+Abra o terminal integrado no diretório `app-walkpet` e execute:
+
+```bash
+npm install
+# ou, se usar yarn:
+# yarn install
+```
+
+Isso vai baixar todos os pacotes listados em `package.json`.
+
+---
+
+## 3. Executar em modo de desenvolvimento
+
+```bash
+npm start
+# ou
+# yarn start
+```
+
+- O servidor de desenvolvimento será iniciado em  
+  http://localhost:5173
+- Toda vez que editar um arquivo `.js`/`.jsx`/`.css`, o navegador irá recarregar automaticamente.
+
+---
+
+## 4. Criar build de produção
+
+Quando quiser gerar os arquivos otimizados para deploy:
+
+```bash
+npm run build
+# ou
+# yarn build
+```
+
+Isso vai produzir uma pasta `build/` com HTML/CSS/JS minificados prontos para subir em qualquer servidor estático (Netlify, Vercel, GitHub Pages etc.).
+
+---
+
+Pronto! Agora você já sabe como instalar, rodar e gerar build do frontend React do **app-walkpet**
+
+
+# 🚀 Como Hospedar o Backend
+
+Este guia explica como configurar e rodar localmente o backend do projeto **api-walkpet** (.NET 9 + EF Core + MySQL).
+
+---
+
+## 1. Pré-requisitos
+
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download)  
+- MySQL (ou MariaDB) rodando localmente ou em servidor acessível  
+- (Opcional) CLI do Entity Framework Core instalada globalmente  
+
+---
+
+## 2. Criar o arquivo `.env`
+
+Na raiz da pasta `api-walkpet`, crie um arquivo chamado `.env` com suas credenciais:
+
+```text
+// filepath: api-walkpet/.env
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DATABASE=walkpetdb
+MYSQL_USER=root
+MYSQL_PASSWORD=sua_senha_aqui
+```
+
+> **Importante:** não commite este arquivo em repositórios públicos.
+
+---
+
+## 3. (Opcional) Instalar a CLI do EF Core
+
+Caso ainda não tenha o `dotnet-ef` instalado:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+---
+
+## 4. Criar a Migração Inicial
+
+Abra o terminal integrado no diretório `api-walkpet` e execute:
+
+```bash
+dotnet ef migrations add InitialCreate \
+  --project .\api.csproj \
+  --startup-project .\api.csproj
+```
+
+Isso irá gerar a pasta `Migrations/` com o script para criar as tabelas.
+
+---
+
+## 5. Aplicar Migrações (Criar Tabelas)
+
+Ainda dentro de `api-walkpet`, rode:
+
+```bash
+dotnet ef database update \
+  --project .\api.csproj \
+  --startup-project .\api.csproj
+```
+
+As tabelas `Passeadores` e `Avaliacoes` serão criadas no banco `walkpetdb`.
+
+---
+
+## 6. Executar o Backend
+
+No terminal, ainda em `api-walkpet`:
+
+```bash
+dotnet run
+```
+
+Por padrão a API ficará disponível em:  
+**http://localhost:8081/swagger**
+
+Use o Swagger UI para explorar os endpoints.
+
+---
+
+Pronto! Seu backend está hospedado e pronto para desenvolvimento ou testes locais.
+
