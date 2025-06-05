@@ -105,7 +105,7 @@
   right: -100%;
   width: 240px;
   height: 100vh;
-  background: #ffffff;
+  background: var(--light-blue);
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
   z-index: 11;
@@ -160,6 +160,10 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 18px;
+  text-align: center;
+  border: 3px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 8px;
 }
 
 .drawer-register-btn {
@@ -189,9 +193,12 @@
 
 .drawer-perfil-btn {
   background: none;
-  border: none;
+  border: 3px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 8px;
   cursor: pointer;
   text-align: left;
+  text-align: center;
 }
 
 .drawer-perfil-btn a {
