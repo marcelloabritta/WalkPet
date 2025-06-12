@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../Card/style.css";
 import { Link } from "react-router-dom";
-import defaultProfile from "../../assets/profilePic.png"
+import defaultProfile from "../../assets/profilePic.png";
 import axios from "axios";
 
 const Card = ({ walkers }) => {
@@ -19,8 +19,25 @@ const Card = ({ walkers }) => {
 
   const carregarAvaliacoes = async () => {
     try {
-      // Substitua pelo URL correto da sua API
-      const response = await axios.get(`http://localhost:8081/api/passeadores/${walkers.username}`);
+      // Usar diretamente as avaliações se já estiverem no objeto walkers
+      if (
+        walkers.avaliacoes &&
+        (walkers.mediaEstrelas !== undefined ||
+          walkers.totalAvaliacoes !== undefined)
+      ) {
+        // Usar os dados já calculados pelo backend se disponíveis
+        setAvaliacoes(
+          Array.isArray(walkers.avaliacoes)
+            ? walkers.avaliacoes
+            : walkers.avaliacoes.$values || []
+        );
+        return;
+      }
+
+      // Caso contrário, buscar do servidor
+      const response = await axios.get(
+        `http://localhost:8081/api/passeadores/${walkers.username}`
+      );
       const passeador = response.data;
 
       // Verifique se há avaliações
@@ -28,84 +45,94 @@ const Card = ({ walkers }) => {
       console.log("Avaliações no Card:", avaliacaoData);
 
       setAvaliacoes(avaliacaoData); // Carrega as avaliações na state
-
     } catch (error) {
       console.error("Erro ao carregar as avaliações:", error);
     }
   };
 
-  const totalAvaliacoes = avaliacoes.length;
-  const totalEstrelas = avaliacoes.reduce(
-    (acc, curr) => acc + (curr.estrelas || 0),
-    0
-  );
-
-
+  // Usar mediaEstrelas do backend se disponível, ou calcular localmente
   const averageStars =
-    totalAvaliacoes > 0 ? totalEstrelas / totalAvaliacoes : 0;
-    console.log("Média de estrelas:", averageStars);
+    walkers.mediaEstrelas !== undefined
+      ? walkers.mediaEstrelas
+      : (() => {
+          const totalAvaliacoes = avaliacoes.length;
+          const totalEstrelas = avaliacoes.reduce(
+            (acc, curr) => acc + (curr.estrelas || 0),
+            0
+          );
+          return totalAvaliacoes > 0 ? totalEstrelas / totalAvaliacoes : 0;
+        })();
 
-
+  // Formatar para exibir
   const fullStars = Math.floor(averageStars);
   const halfStar = averageStars % 1 >= 0.5 ? 1 : 0;
   const emptyStars = 5 - (fullStars + halfStar);
 
+  // Número total de avaliações
+  const totalAvaliacoes =
+    walkers.totalAvaliacoes !== undefined
+      ? walkers.totalAvaliacoes
+      : avaliacoes.length;
+
   const getFoto = (foto) => {
-    if (typeof foto === 'string' && foto.trim() !== "") {
+    if (typeof foto === "string" && foto.trim() !== "") {
       return foto;
     }
     return defaultProfile;
   };
 
-  
-
-
   return (
     <div className="card-walkers">
       <div className="card-top">
-
-      <div className="card-left">
-        <img src={getFoto(walkers.foto)} alt={walkers.nome} />
-        <h4>R$ {parseFloat(walkers.preco).toFixed(2)} / hora</h4>
-      </div>
-      <div className="card-right">
-
-        <h3>{walkers.nome}</h3>
-
-        <div className="stars">
-
-          {[...Array(fullStars)].map((_, index) => (
-            <FontAwesomeIcon
-              key={`full-${index}`}
-              icon={faStar}
-              className="full-star"
-            />
-          ))}
-          {halfStar > 0 && (
-            <FontAwesomeIcon
-              key="half-1"
-              icon={faStarHalf}
-              className="half-star"
-            />
-          )}
-
-          {[...Array(emptyStars)].map((_, index) => (
-            <FontAwesomeIcon
-              key={`empty-${index}`}
-              icon={faEmptyStar}
-              className="empty-star"
-            />
-          ))}
+        <div className="card-left">
+          <img src={getFoto(walkers.foto)} alt={walkers.nome} />
+          <h4>R$ {parseFloat(walkers.preco).toFixed(2)} / hora</h4>
         </div>
-        <p>{walkers.descricao} </p>
-        <p>{walkers.curiosidades} </p>
+        <div className="card-right">
+          <h3>{walkers.nome}</h3>
+          <div className="stars">
+            {[...Array(fullStars)].map((_, index) => (
+              <FontAwesomeIcon
+                key={`full-${index}`}
+                icon={faStar}
+                className="full-star"
+              />
+            ))}
+            {halfStar > 0 && (
+              <FontAwesomeIcon
+                key="half-1"
+                icon={faStarHalf}
+                className="half-star"
+              />
+            )}
+            {[...Array(emptyStars)].map((_, index) => (
+              <FontAwesomeIcon
+                key={`empty-${index}`}
+                icon={faEmptyStar}
+                className="empty-star"
+              />
+            ))}
+            {/* Mostrar a média e total de avaliações */}
+            <span className="rating-info">
+              {averageStars > 0 ? `(${averageStars.toFixed(1)})` : ""}
+              {totalAvaliacoes > 0 && (
+                <span className="reviews-count">
+                  {" "}
+                  {totalAvaliacoes}{" "}
+                  {totalAvaliacoes === 1 ? "avaliação" : "avaliações"}
+                </span>
+              )}
+            </span>
+          </div>
+          <p>{walkers.descricao} </p>
+          <p>{walkers.curiosidades} </p>
+        </div>
       </div>
-    </div>
       <Link to={`/passeadores/${walkers.username}`}>
         <button className="btn-walker">Saiba mais</button>
       </Link>
-      </div>
+    </div>
   );
 };
 
-export default Card;  
+export default Card;

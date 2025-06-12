@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using API.Models;
+using API.DTO;
 using System.Runtime.CompilerServices;
 namespace API.Controllers
 {
@@ -17,12 +18,29 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Passeador>>> GetTodos()
+        public async Task<ActionResult<IEnumerable<PasseadorDTO>>> GetTodos()
         {
             var passeadores = await _context.Passeadores
-    .Include(p => p.Avaliacoes)
-    .ToListAsync();
-            return Ok(passeadores);
+                .Include(p => p.Avaliacoes)
+                .ToListAsync();
+                
+            var passeadoresDTO = passeadores.Select(p => new PasseadorDTO
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Username = p.Username,
+                Email = p.Email,
+                Descricao = p.Descricao,
+                Curiosidades = p.Curiosidades,
+                Cidade = p.Cidade,
+                Estado = p.Estado,
+                Distancia = p.Distancia,
+                Preco = p.Preco,
+                Foto = p.Foto,
+                Avaliacoes = p.Avaliacoes
+            }).ToList();
+            
+            return Ok(passeadoresDTO);
         }
 
         [HttpPost]
@@ -44,40 +62,56 @@ namespace API.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<Passeador>> GetPorUsername(string username)
+        public async Task<ActionResult<PasseadorDTO>> GetPorUsername(string username)
         {
             var passeador = await _context.Passeadores
                 .Include(p => p.Avaliacoes)
                 .FirstOrDefaultAsync(p => p.Username == username);
 
             if (passeador == null)
-                return NotFound();
+                return NotFound("Passeador não encontrado");
 
-            return Ok(passeador);
+            var passeadorDTO = new PasseadorDTO
+            {
+                Id = passeador.Id,
+                Nome = passeador.Nome,
+                Username = passeador.Username,
+                Email = passeador.Email,
+                Descricao = passeador.Descricao,
+                Curiosidades = passeador.Curiosidades,
+                Cidade = passeador.Cidade,
+                Estado = passeador.Estado,
+                Distancia = passeador.Distancia,
+                Preco = passeador.Preco,
+                Foto = passeador.Foto,
+                Avaliacoes = passeador.Avaliacoes
+            };
+
+            return Ok(passeadorDTO);
         }
 
         [HttpPut("{username}")]
-public async Task<ActionResult> AtualizarPorUsername(string username, [FromBody] Passeador passeadorAtualizado)
-{
-    var passeador = await _context.Passeadores
-        .FirstOrDefaultAsync(p => p.Username == username);
+        public async Task<ActionResult> AtualizarPorUsername(string username, [FromBody] Passeador passeadorAtualizado)
+        {
+        var passeador = await _context.Passeadores
+            .FirstOrDefaultAsync(p => p.Username == username);
 
-    if (passeador == null)
-        return NotFound("Passeador não encontrado");
+        if (passeador == null)
+            return NotFound("Passeador não encontrado");
 
-    passeador.Nome = passeadorAtualizado.Nome;
-    passeador.Email = passeadorAtualizado.Email;
-    passeador.Descricao = passeadorAtualizado.Descricao;
-    passeador.Curiosidades = passeadorAtualizado.Curiosidades;
-    passeador.Preco = passeadorAtualizado.Preco;
-    passeador.Cidade = passeadorAtualizado.Cidade;
-    passeador.Estado = passeadorAtualizado.Estado;
-    if (!string.IsNullOrEmpty(passeadorAtualizado.Foto))
-        passeador.Foto = passeadorAtualizado.Foto;
+        passeador.Nome = passeadorAtualizado.Nome;
+        passeador.Email = passeadorAtualizado.Email;
+        passeador.Descricao = passeadorAtualizado.Descricao;
+        passeador.Curiosidades = passeadorAtualizado.Curiosidades;
+        passeador.Preco = passeadorAtualizado.Preco;
+        passeador.Cidade = passeadorAtualizado.Cidade;
+        passeador.Estado = passeadorAtualizado.Estado;
+        if (!string.IsNullOrEmpty(passeadorAtualizado.Foto))
+            passeador.Foto = passeadorAtualizado.Foto;
 
-    await _context.SaveChangesAsync();
-    return Ok(passeador);
-}
+        await _context.SaveChangesAsync();
+        return Ok(passeador);
+        }
 
 
     }

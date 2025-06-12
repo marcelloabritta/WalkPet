@@ -27,30 +27,35 @@ namespace API.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<IEnumerable<Avaliacao>>> GetAvaliacoesPorUsername(string username)
         {
-            // Procura o passeador pelo username
-            var passeador = await _context.Passeadores
-                .FirstOrDefaultAsync(p => p.Username == username);
+        var passeador = await _context.Passeadores
+            .FirstOrDefaultAsync(p => p.Username == username);
+        if (passeador == null)
+            return NotFound();
 
-            if (passeador == null)
-            {
-                return NotFound();  // Retorna 404 se o passeador não for encontrado
-            }
-
-            // Busca as avaliações do passeador usando o ID
-            var avaliacoes = await _context.Avaliacoes
-                .Where(a => a.PasseadorId == passeador.Id)
-                .ToListAsync();
-
-            return avaliacoes;
+         var avaliacoes = await _context.Avaliacoes
+            .Where(a => a.PasseadorId == passeador.Id)
+            .ToListAsync();
+        return Ok(avaliacoes);                      
         }
 
         [HttpPost]
-        public async Task<ActionResult<Avaliacao>> Criar(Avaliacao avaliacao)
-        {
-            _context.Avaliacoes.Add(avaliacao);
-            await _context.SaveChangesAsync();
+public async Task<ActionResult<Avaliacao>> Criar([FromBody] Avaliacao avaliacao)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
 
-            return CreatedAtAction(nameof(GetAvaliacoesPorUsername), new { username = avaliacao.Passeador.Username }, avaliacao);
-        }
+    avaliacao.Data = DateTime.UtcNow;
+    _context.Avaliacoes.Add(avaliacao);
+    await _context.SaveChangesAsync();
+
+    var passeador = await _context.Passeadores.FindAsync(avaliacao.PasseadorId);
+    return CreatedAtAction(
+        nameof(GetAvaliacoesPorUsername),
+        new { username = passeador.Username },
+        avaliacao
+    );
+}
     }
 }

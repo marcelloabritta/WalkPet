@@ -9,13 +9,21 @@ import { useLocation } from "react-router-dom";
 
 const Passeadores = () => {
   const location = useLocation();
-  const [walkers, setWalkers]= useState([]);
+  const [walkers, setWalkers] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const fetchWalkers = async () => {
-      const fetchedWalkers = await GetWalkers();
-      const walkersArray = fetchedWalkers.$values || []; 
-      setWalkers(walkersArray);
+      setLoading(true);
+      try {
+        const fetchedWalkers = await GetWalkers();
+        // Os dados já vêm com mediaEstrelas e totalAvaliacoes calculados pelo backend
+        setWalkers(Array.isArray(fetchedWalkers) ? fetchedWalkers : (fetchedWalkers.$values || []));
+      } catch (error) {
+        console.error("Erro ao carregar passeadores:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchWalkers();
@@ -25,28 +33,28 @@ const Passeadores = () => {
     <div className="walkers-container">
       <div className="walkers-top">
         <h1>Passeadores</h1>
-
         <div className="search-walkers">
-
+          {/* Campo de busca aqui */}
         </div>
-
       </div>
 
       <div className="walkers-bottom">
-
         <div className="walkers-left">
           <img src={passeador1} alt="" />
         </div>
         <div className="walkers-mid">
-          {walkers.map((walker) => (
-            <Card key={walker.username} walkers={walker}></Card>
-          ))}
+          {loading ? (
+            <p>Carregando passeadores...</p>
+          ) : (
+            walkers.map((walker) => (
+              <Card key={walker.username} walkers={walker} />
+            ))
+          )}
         </div>
         <div className="walkers-right">
           <img src={passeador2} alt="" />
         </div>
       </div>
-
     </div>
   );
 };
