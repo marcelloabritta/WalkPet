@@ -10,11 +10,13 @@ import {
   faStar as faEmptyStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../context/UserContext";
+import { useAuthenticatedRequest } from "../../Hook/useAuthenticatedRequest";
 import axios from "axios";
 import "../Perfil/style.css";
 
 const Perfil = () => {
   const { user, login } = useUser();
+  const { makeAuthenticatedRequest } = useAuthenticatedRequest();
   const [originalData, setOriginalData] = useState(null);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -38,10 +40,15 @@ const Perfil = () => {
       navigate("/login");
     }
     const passeadores = JSON.parse(localStorage.getItem("passeadores")) || [];
-    const passeadorAtualizado = passeadores.find(p => p.username === user.nomeUsuario);
+    const passeadorAtualizado = passeadores.find(
+      (p) => p.username === user.nomeUsuario
+    );
 
     if (passeadorAtualizado) {
-      setFormData(prev => ({ ...prev, avaliacoes: passeadorAtualizado.avaliacoes || [] }));
+      setFormData((prev) => ({
+        ...prev,
+        avaliacoes: passeadorAtualizado.avaliacoes || [],
+      }));
     }
   }, [user, navigate]);
 
@@ -82,6 +89,7 @@ const Perfil = () => {
       });
   }, []);
 
+  // Efeito para buscar dados do usuário com autenticação
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -90,9 +98,11 @@ const Perfil = () => {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8081/api/passeadores/${user.nomeUsuario}`
+        // Usar requisição autenticada para buscar dados do usuário
+        const response = await makeAuthenticatedRequest(
+          `http://localhost:8081/api/passeadores/me`
         );
+
         if (response.ok) {
           const userData = await response.json();
           const avaliacoes = userData.avaliacoes?.$values || [];
@@ -108,34 +118,29 @@ const Perfil = () => {
     };
 
     fetchUserData();
-  }, [user, navigate]);
+  }, [user, navigate, makeAuthenticatedRequest]);
 
+  // Função de salvar com autenticação
   const handleSave = async () => {
     try {
       const updatedData = {
         nome: formData.nome,
-        cpf: user.cpf, 
-        username: user.nomeUsuario, 
-        email: formData.contato, 
-        senha: user.senha, 
+        email: formData.contato,
         descricao: formData.descricao || "Sem descrição",
         curiosidades: formData.curiosidades || "Sem curiosidades",
         cidade: formData.cidade,
         estado: formData.estado,
-        distancia: user.distancia || "0 km",
         preco: parseFloat(formData.preco) || 0,
         foto: formData.foto || user.foto,
       };
 
-      console.log("Dados sendo enviados:", updatedData); 
+      console.log("Dados sendo enviados:", updatedData);
 
-      const response = await fetch(
+      // Usar requisição autenticada
+      const response = await makeAuthenticatedRequest(
         `http://localhost:8081/api/passeadores/${user.nomeUsuario}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
           body: JSON.stringify(updatedData),
         }
       );
@@ -144,7 +149,7 @@ const Perfil = () => {
         const updatedUser = {
           ...user,
           nome: formData.nome,
-          email: formData.contato, 
+          email: formData.contato,
           descricao: formData.descricao,
           curiosidades: formData.curiosidades,
           cidade: formData.cidade,
@@ -165,7 +170,15 @@ const Perfil = () => {
       }
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      alert("Erro de conexão!");
+      if (
+        error.message === "Sessão expirada" ||
+        error.message === "Não autorizado"
+      ) {
+        alert("Sessão expirada. Faça login novamente.");
+        navigate("/login");
+      } else {
+        alert("Erro de conexão!");
+      }
     }
   };
 
@@ -181,20 +194,37 @@ const Perfil = () => {
     setIsEditing(false);
   };
 
-  const totalAvaliacoes = Array.isArray(formData.avaliacoes) ? formData.avaliacoes.length : 0;
+  // Buscar cidades quando o estado for selecionado
+  useEffect(() => {
+    if (formData.estado) {
+      axios
+        .get(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${formData.estado}/municipios`
+        )
+        .then((response) => {
+          const cidadesOrdenadas = response.data.sort((a, b) =>
+            a.nome.localeCompare(b.nome)
+          );
+          setCidades(cidadesOrdenadas);
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar cidades:", error);
+        });
+    }
+  }, [formData.estado]);
+
+  const totalAvaliacoes = Array.isArray(formData.avaliacoes)
+    ? formData.avaliacoes.length
+    : 0;
   const totalEstrelas = Array.isArray(formData.avaliacoes)
     ? formData.avaliacoes.reduce((acc, curr) => acc + (curr.estrelas || 0), 0)
     : 0;
 
-
   const averageStars =
     totalAvaliacoes > 0 ? totalEstrelas / totalAvaliacoes : 0;
-
-
   const fullStars = Math.floor(averageStars);
   const halfStar = averageStars % 1 >= 0.5 ? 1 : 0;
   const emptyStars = 5 - (fullStars + halfStar);
-
 
   return (
     <div className="perfil">
@@ -235,7 +265,9 @@ const Perfil = () => {
             )}
           </p>
           <p>
-            <span><FontAwesomeIcon icon={faEnvelope} /> </span>
+            <span>
+              <FontAwesomeIcon icon={faEnvelope} />{" "}
+            </span>
             {isEditing ? (
               <input
                 type="text"
@@ -342,7 +374,6 @@ const Perfil = () => {
                         ))}
                     </ul>
                   )}
-
                 </div>
               </>
             ) : (
@@ -375,14 +406,11 @@ const Perfil = () => {
               formData.curiosidades
             )}
           </p>
-
-
         </div>
       </div>
+
       <div className="perfil-bottom">
-
         <div className="stars">
-
           {[...Array(fullStars)].map((_, index) => (
             <FontAwesomeIcon
               key={`full-${index}`}
@@ -397,7 +425,6 @@ const Perfil = () => {
               className="half-star"
             />
           )}
-
           {[...Array(emptyStars)].map((_, index) => (
             <FontAwesomeIcon
               key={`empty-${index}`}
@@ -407,12 +434,11 @@ const Perfil = () => {
           ))}
         </div>
         <Link to={`/avaliacoes/${user.nomeUsuario}`} className="avaliacoes">
-          Ver Avaliações
+          Ver Avaliações ({totalAvaliacoes})
         </Link>
       </div>
     </div>
   );
-}
+};
 
 export default Perfil;
-

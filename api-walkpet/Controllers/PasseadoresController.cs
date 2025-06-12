@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using API.Data;
 using API.Models;
 using API.DTO;
-using System.Runtime.CompilerServices;
+using API.Services;
+
 namespace API.Controllers
 {
     [ApiController]
@@ -11,10 +13,12 @@ namespace API.Controllers
     public class PasseadoresController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly AuthService _authService;
 
-        public PasseadoresController(AppDbContext context)
+        public PasseadoresController(AppDbContext context, AuthService authService)
         {
             _context = context;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -54,9 +58,10 @@ namespace API.Controllers
                 return Conflict("Já existe um passeador com esse CPF ou email.");
             }
 
+            passeador.Senha = _authService.HashPassword(passeador.Senha);
+
             _context.Passeadores.Add(passeador);
             await _context.SaveChangesAsync();
-
 
             return CreatedAtAction(nameof(GetTodos), new { id = passeador.Id }, passeador);
         }
@@ -91,45 +96,110 @@ namespace API.Controllers
         }
 
         [HttpPut("{username}")]
-        public async Task<ActionResult> AtualizarPorUsername(string username, [FromBody] Passeador passeadorAtualizado)
+        [Authorize] 
+        public async Task<ActionResult> AtualizarPorUsername(string username, [FromBody] AtualizarPasseadorDTO dadosAtualizacao)
         {
+
+            var currentUsername = User.Identity.Name;
+            if (currentUsername != username)
+            {
+                return Forbid("Você não pode editar este perfil");
+            }
+
             var passeador = await _context.Passeadores
                 .FirstOrDefaultAsync(p => p.Username == username);
 
             if (passeador == null)
                 return NotFound("Passeador não encontrado");
 
-            passeador.Nome = passeadorAtualizado.Nome;
-            passeador.Email = passeadorAtualizado.Email;
-            passeador.Descricao = passeadorAtualizado.Descricao;
-            passeador.Curiosidades = passeadorAtualizado.Curiosidades;
-            passeador.Preco = passeadorAtualizado.Preco;
-            passeador.Cidade = passeadorAtualizado.Cidade;
-            passeador.Estado = passeadorAtualizado.Estado;
-            if (!string.IsNullOrEmpty(passeadorAtualizado.Foto))
-                passeador.Foto = passeadorAtualizado.Foto;
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Nome))
+                passeador.Nome = dadosAtualizacao.Nome;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Email))
+                passeador.Email = dadosAtualizacao.Email;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Descricao))
+                passeador.Descricao = dadosAtualizacao.Descricao;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Curiosidades))
+                passeador.Curiosidades = dadosAtualizacao.Curiosidades;
+
+            if (dadosAtualizacao.Preco.HasValue && dadosAtualizacao.Preco > 0)
+                passeador.Preco = dadosAtualizacao.Preco.Value;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Cidade))
+                passeador.Cidade = dadosAtualizacao.Cidade;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Estado))
+                passeador.Estado = dadosAtualizacao.Estado;
+
+            if (!string.IsNullOrEmpty(dadosAtualizacao.Foto))
+                passeador.Foto = dadosAtualizacao.Foto;
 
             await _context.SaveChangesAsync();
             return Ok(passeador);
         }
 
-        public class LoginRequest
-        {
-            public string Username { get; set; }
-            public string Senha { get; set; }
-        }
-
         [HttpPost("login")]
-        public async Task<ActionResult<PasseadorDTO>> Login([FromBody] LoginRequest login)
+        public async Task<ActionResult<LoginResponseDTO>> Login([FromBody] LoginRequest login)
         {
             var passeador = await _context.Passeadores
+                .Include(p => p.Avaliacoes)
                 .FirstOrDefaultAsync(p => p.Username == login.Username);
 
             if (passeador == null)
                 return Unauthorized("Usuário não encontrado");
 
-            if (passeador.Senha != login.Senha) // lembre-se: para projeto real, use hash
+            // Verificar senha com hash
+            if (!_authService.VerifyPassword(login.Senha, passeador.Senha))
                 return Unauthorized("Senha incorreta");
+
+            // Gerar token JWT
+            var token = _authService.GenerateJwtToken(passeador);
+
+            var passeadorDTO = new PasseadorDTO
+            {
+                Id = passeador.Id,
+                Nome = passeador.Nome,
+                Username = passeador.Username,
+                Email = passeador.Email,
+                Descricao = passeador.Descricao,
+                Curiosidades = passeador.Curiosidades,
+                Cidade = passeador.Cidade,
+                Estado = passeador.Estado,
+                Distancia = passeador.Distancia,
+                Preco = passeador.Preco,
+                Foto = passeador.Foto,
+                Avaliacoes = passeador.Avaliacoes
+            };
+
+            return Ok(new LoginResponseDTO
+            {
+                Token = token,
+                Passeador = passeadorDTO,
+                ExpiresAt = DateTime.Now.AddHours(24)
+            });
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult Logout()
+        {
+
+            return Ok(new { message = "Logout realizado com sucesso" });
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ActionResult<PasseadorDTO>> GetCurrentUser()
+        {
+            var username = User.Identity.Name;
+            var passeador = await _context.Passeadores
+                .Include(p => p.Avaliacoes)
+                .FirstOrDefaultAsync(p => p.Username == username);
+
+            if (passeador == null)
+                return NotFound("Usuário não encontrado");
 
             var passeadorDTO = new PasseadorDTO
             {
@@ -149,7 +219,5 @@ namespace API.Controllers
 
             return Ok(passeadorDTO);
         }
-
-
     }
 }

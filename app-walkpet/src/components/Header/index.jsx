@@ -4,18 +4,30 @@ import { useUser } from "../../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-
+import { useAuthenticatedRequest } from "../../Hook/useAuthenticatedRequest";
 import "./style.css";
 
 const Header = () => {
   const { user, logout } = useUser();
+  const { makeAuthenticatedRequest } = useAuthenticatedRequest();
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-    setDrawerOpen(false);
+  const handleLogout = async () => {
+    try {
+      await makeAuthenticatedRequest(
+        "http://localhost:8081/api/passeadores/logout",
+        {
+          method: "POST",
+        }
+      );
+    } catch (error) {
+      console.log("Erro no logout do servidor:", error);
+    } finally {
+      logout();
+      navigate("/");
+      setDrawerOpen(false);
+    }
   };
 
   const toggleDrawer = () => {
