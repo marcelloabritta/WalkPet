@@ -83,52 +83,90 @@ const Perfil = () => {
   }, []);
 
   useEffect(() => {
-    if (formData.estado) {
-      axios
-        .get(
-          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${formData.estado}/municipios`
-        )
-        .then((response) => {
-          const cidadesOrdenadas = response.data.sort((a, b) =>
-            a.nome.localeCompare(b.nome)
-          );
-          setCidades(cidadesOrdenadas);
-        });
-    } else {
-      setCidades([]);
+    if (!user) {
+      navigate("/login");
+      return;
     }
-  }, [formData.estado]);
 
-  const handleSave = () => {
-    const updatedUser = { ...user, ...formData };
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const passeadores = JSON.parse(localStorage.getItem("passeadores")) || [];
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8081/api/passeadores/${user.nomeUsuario}`
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          const avaliacoes = userData.avaliacoes?.$values || [];
 
-    const updatedUsers = users.map((u) =>
-      u.nomeUsuario === updatedUser.nomeUsuario ? updatedUser : u
-    );
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    const updatedPasseadores = passeadores.map((p) =>
-      p.username === updatedUser.nomeUsuario
-        ? {
-          ...p,
-          nome: updatedUser.nome,
-          email: updatedUser.email,
-          descricao: updatedUser.descricao,
-          foto: updatedUser.foto,
-          curiosidades: updatedUser.curiosidades,
-          preco: updatedUser.preco,
-          cidade: updatedUser.cidade,
-          estado: updatedUser.estado,
+          setFormData((prev) => ({
+            ...prev,
+            avaliacoes: avaliacoes,
+          }));
         }
-        : p
-    );
-    localStorage.setItem("passeadores", JSON.stringify(updatedPasseadores));
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    };
 
-    localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
-    login(updatedUser);
-    setIsEditing(false);
+    fetchUserData();
+  }, [user, navigate]);
+
+  const handleSave = async () => {
+    try {
+      const updatedData = {
+        nome: formData.nome,
+        cpf: user.cpf, 
+        username: user.nomeUsuario, 
+        email: formData.contato, 
+        senha: user.senha, 
+        descricao: formData.descricao || "Sem descrição",
+        curiosidades: formData.curiosidades || "Sem curiosidades",
+        cidade: formData.cidade,
+        estado: formData.estado,
+        distancia: user.distancia || "0 km",
+        preco: parseFloat(formData.preco) || 0,
+        foto: formData.foto || user.foto,
+      };
+
+      console.log("Dados sendo enviados:", updatedData); 
+
+      const response = await fetch(
+        `http://localhost:8081/api/passeadores/${user.nomeUsuario}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
+      if (response.ok) {
+        const updatedUser = {
+          ...user,
+          nome: formData.nome,
+          email: formData.contato, 
+          descricao: formData.descricao,
+          curiosidades: formData.curiosidades,
+          cidade: formData.cidade,
+          estado: formData.estado,
+          preco: formData.preco,
+          foto: formData.foto,
+        };
+
+        localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+        login(updatedUser);
+        setIsEditing(false);
+
+        alert("Perfil atualizado com sucesso!");
+      } else {
+        const errorText = await response.text();
+        console.error("Erro detalhado:", errorText);
+        alert("Erro ao atualizar perfil!");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      alert("Erro de conexão!");
+    }
   };
 
   const toggleEdit = () => {

@@ -117,12 +117,12 @@ const SignUpForm = () => {
     const valid = isStepValid();
     if (valid) {
       setStepAtual(stepAtual + 1);
-      setErrorMessage(""); // Limpa a mensagem de erro ao avançar para o próximo passo
+      setErrorMessage("");
     }
   };
 
   useEffect(() => {
-    setErrorMessage(""); // Limpa a mensagem de erro toda vez que a etapa muda
+    setErrorMessage("");
   }, [stepAtual]);
 
   const prevStep = () => {
@@ -137,70 +137,50 @@ const SignUpForm = () => {
     }));
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem!");
       return;
     }
 
-    if (!isStepValid()) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
-      return;
+    try {
+      const response = await fetch("http://localhost:8081/api/passeadores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome,
+          cpf,
+          username: nomeUsuario,
+          email,
+          senha,
+          descricao: descricao || "Descrição padrão", 
+          curiosidades: curiosidades || "Sem curiosidades", 
+          cidade,
+          estado,
+          distancia: "0 km", 
+          preco: parseFloat(preco) || 0, 
+          foto: foto || defaultProfile,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Usuário cadastrado com sucesso!");
+        navigate("/login");
+      } else if (response.status === 409) {
+        alert("CPF ou email já cadastrado!");
+      } else {
+        const errorText = await response.text();
+        console.error("Erro detalhado:", errorText);
+        alert("Erro no cadastro! Verifique os dados.");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro de conexão!");
     }
-
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const storedWalkers = JSON.parse(localStorage.getItem("passeadores")) || [];
-
-    if (
-      storedUsers.some(
-        (user) => user.nomeUsuario === nomeUsuario || user.email === email
-      ) ||
-      storedWalkers.some(
-        (walker) => walker.username === nomeUsuario || walker.email === email
-      )
-    ) {
-      alert("Nome de usuário ou email já cadastrado!");
-      return;
-    }
-
-    const newWalker = new Passeador(
-      storedWalkers.length + 1,
-      nome,
-      cpf,
-      nomeUsuario,
-      email,
-      senha,
-      descricao,
-      curiosidades,
-      cidade,
-      estado,
-      null,
-      preco,
-      foto || defaultProfile,
-      [], // Avaliações inicialmente vazias
-    );
-
-    storedWalkers.push(newWalker);
-    localStorage.setItem("passeadores", JSON.stringify(storedWalkers));
-
-    storedUsers.push({
-      nome,
-      nomeUsuario,
-      cpf,
-      email,
-      senha,
-      descricao,
-      curiosidades,
-      cidade,
-      estado,
-      preco,
-      foto: foto || defaultProfile,
-    });
-    localStorage.setItem("users", JSON.stringify(storedUsers));
-
-    alert("Usuário cadastrado com sucesso!");
-    navigate("/login");
   };
 
   return (

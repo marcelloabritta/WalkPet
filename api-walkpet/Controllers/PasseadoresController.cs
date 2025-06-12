@@ -56,6 +56,29 @@ namespace API.Controllers
             return Ok(passeador);
         }
 
+        [HttpPut("{username}")]
+public async Task<ActionResult> AtualizarPorUsername(string username, [FromBody] Passeador passeadorAtualizado)
+{
+    var passeador = await _context.Passeadores
+        .FirstOrDefaultAsync(p => p.Username == username);
+
+    if (passeador == null)
+        return NotFound("Passeador não encontrado");
+
+    passeador.Nome = passeadorAtualizado.Nome;
+    passeador.Email = passeadorAtualizado.Email;
+    passeador.Descricao = passeadorAtualizado.Descricao;
+    passeador.Curiosidades = passeadorAtualizado.Curiosidades;
+    passeador.Preco = passeadorAtualizado.Preco;
+    passeador.Cidade = passeadorAtualizado.Cidade;
+    passeador.Estado = passeadorAtualizado.Estado;
+    if (!string.IsNullOrEmpty(passeadorAtualizado.Foto))
+        passeador.Foto = passeadorAtualizado.Foto;
+
+    await _context.SaveChangesAsync();
+    return Ok(passeador);
+}
+
 
     }
 }
