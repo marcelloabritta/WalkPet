@@ -23,7 +23,7 @@ namespace API.DTO
         // Média das avaliações
         public decimal MediaEstrelas => 
             Avaliacoes?.Any() == true
-                ? Avaliacoes.Average(a => a.Estrelas)
+                ? Convert.ToDecimal(Avaliacoes.Average(a => (double)a.Estrelas))
                 : 0;
                 
         // Total de avaliações

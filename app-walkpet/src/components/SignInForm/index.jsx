@@ -14,46 +14,44 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8081/api/passeadores");
+    const response = await fetch("http://localhost:8081/api/passeadores/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: nomeUsuario,
+        senha: senha,
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Erro ao conectar com o servidor");
-      }
-
-      const data = await response.json();
-      const passeadores = data.$values || data;
-
-      const user = passeadores.find(
-        (p) => p.username === nomeUsuario && p.senha === senha
-      );
-
-      if (user) {
-        const userForContext = {
-          nomeUsuario: user.username,
-          nome: user.nome,
-          email: user.email,
-          senha: user.senha,
-          descricao: user.descricao,
-          curiosidades: user.curiosidades,
-          cidade: user.cidade,
-          estado: user.estado,
-          preco: user.preco,
-          foto: user.foto,
-          cpf: user.cpf,
-          distancia: user.distancia,
-          avaliacoes: user.avaliacoes || [],
-        };
-
-        localStorage.setItem("loggedInUser", JSON.stringify(userForContext));
-        login(userForContext);
-        navigate("/");
-      } else {
-        setError("Nome de usuário ou senha incorretos.");
-      }
-    } catch (error) {
-      console.error("Erro no login:", error);
-      setError("Erro de conexão. Tente novamente.");
+    if (!response.ok) {
+      setError("Nome de usuário ou senha incorretos.");
+      return;
     }
+
+    const user = await response.json();
+
+    const userForContext = {
+      nomeUsuario: user.username,
+      nome: user.nome,
+      email: user.email,
+      descricao: user.descricao,
+      curiosidades: user.curiosidades,
+      cidade: user.cidade,
+      estado: user.estado,
+      preco: user.preco,
+      foto: user.foto,
+      avaliacoes: user.avaliacoes || [],
+    };
+
+    localStorage.setItem("loggedInUser", JSON.stringify(userForContext));
+    login(userForContext);
+    navigate("/");
+  } catch (error) {
+    console.error("Erro no login:", error);
+    setError("Erro de conexão. Tente novamente.");
+  }
   };
 
   return (
